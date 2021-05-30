@@ -1,10 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
-const API_KEY = '{YOUR_API_KEY}';
+const API_KEY = '2d185cb0915ca318e92b8db530aaff0a';
 const queryUrl = (city) => `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`
-import loading from './Box-Loading-2.gif';
 
-import todayWeather from './todayWeather.gif';
 
 export default class WeatherDetailScreen extends React.Component {
   constructor(props) {
@@ -40,7 +38,7 @@ export default class WeatherDetailScreen extends React.Component {
     } = this.props;
 
     navigation.setOptions({ title: `Weather Information: ${city}` });
-    //
+
     if (this.state.isLoading) {
       return (
         <View>
@@ -48,13 +46,66 @@ export default class WeatherDetailScreen extends React.Component {
         </View>
       )
     }
-   //
+
    let celsius = this.state.main.temp - 273.15;
-       return (
-         <View style={styles.container}>
-           <Text>온도: {celsius.toFixed(1)}</Text>
-         </View>
-    );
+   let today_weather=this.state.weather[0].main;
+   today_weather=today_weather.trim();
+    if(today_weather == 'Clear')
+           return (
+             <View style={styles.container}>
+              <Image style={styles.weatherStyle} source={require('./clear.png')}/>
+               <Text style={styles.weatherText}>온도: {celsius.toFixed(1)}</Text>
+             </View>
+          );
+    else if(today_weather == 'Rain')
+            return (
+                 <View style={styles.container}>
+                  <Image style={styles.weatherStyle} source={require('./rain.png')}/>
+                   <Text style={styles.weatherText}>온도: {celsius.toFixed(1)}</Text>
+                 </View>
+            );
+    else if(today_weather == 'Haze')
+            return (
+                 <View style={styles.container}>
+                 <Image style={styles.weatherStyle} source={require('./haze.png')}/>
+                   <Text style={styles.weatherText}>온도: {celsius.toFixed(1)}</Text>
+                 </View>
+            );
+    else if(today_weather == 'Snow')
+            return (
+                 <View style={styles.container}>
+                  <Image style={styles.weatherStyle} source={require('./snow.png')}/>
+                   <Text style={styles.weatherText}>온도: {celsius.toFixed(1)}</Text>
+                 </View>
+            );
+    else if(today_weather == 'Thunderstorm')
+            return (
+                 <View style={styles.container}>
+                  <Image style={styles.weatherStyle} source={require('./thunderstorm.png')}/>
+                   <Text style={styles.weatherText}>온도: {celsius.toFixed(1)}</Text>
+                 </View>
+            );
+    else if(today_weather == 'Clouds')
+            return (
+                 <View style={styles.container}>
+                  <Image style={styles.weatherStyle} source={require('./clouds.png')}/>
+                   <Text style={styles.weatherText}>온도: {celsius.toFixed(1)}</Text>
+                 </View>
+            );
+    else if(today_weather == 'Drizzle')
+            return (
+                 <View style={styles.container}>
+                  <Image style={styles.weatherStyle} source={require('./drizzle.png')}/>
+                   <Text style={styles.weatherText}>온도: {celsius.toFixed(1)}</Text>
+                 </View>
+            );
+    else
+        return (
+                     <View style={styles.container}>
+                     <Image style={styles.weatherStyle} source={require('./others.png')}/>
+                       <Text style={styles.weatherText}>온도: {celsius.toFixed(1)}</Text>
+                     </View>
+                );
   }
 }
 const styles = StyleSheet.create({
@@ -63,9 +114,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
          imageStyle: {
-           position:'absolute',
            left:5,
            height:800,
            width:2000,
+
+         },
+         weatherStyle : {
+                    left:5,
+                    height:500,
+                    width:500,
+         },
+         weatherText : {
+            textAlign: 'center',
+            color: 'orange',
          }
 });

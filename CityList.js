@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
+import todayWeather from './todayWeather.gif';
 
 export default class CityList extends React.Component {
   constructor(props) {
@@ -36,6 +37,7 @@ export default class CityList extends React.Component {
 
   render() {
     return (
+    //<Image style={styles.imageStyle} source={require('./todayWeather.gif')}/>
       <FlatList style={styles.container}
                 renderItem={({ item }) => this.renderItem(item)}
                 keyExtractor={item => item}
@@ -70,10 +72,4 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       color: "#f1f2f6",
     },
-              imageStyle: {
-                position:'absolute',
-                left:5,
-                height:800,
-                width:100,
-              }
 });
